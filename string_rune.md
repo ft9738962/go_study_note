@@ -24,3 +24,10 @@ for i, w := 0, 0; i < len(nihongo); i += w {
     w = width
 }
 ```
+
+## string转换为rune
+将string直接转换为rune的slice，这样每个字面值对应的字节数都为标准的int32
+```go
+var s string = "abc"
+rs := []rune(s)
+```
