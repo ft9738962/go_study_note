@@ -26,7 +26,7 @@ func main() {
 **/
 ```
 
-因此使用for loop对字符串循环，其编号为每个字面值所对应byte的起始位置，其因为UTF-8的长度的关系可能并不连续
+但有一种情况例外，使用for loop对字符串循环，其编号为每个字面值所对应byte的起始位置，其因为UTF-8的长度的关系可能并不连续
 ```go
 const nihongo = "日本語"
 for index, runeValue := range nihongo {
