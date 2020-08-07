@@ -54,3 +54,39 @@ func product(m, n int) int {} //func(int, int) int
 ```go
 func(r rune) rune {return r + 1}
 ```
+匿名函数的特性是可以得到其外层函数作用域内的变量
+
+## 变长函数
+在参数列表最后的类型名称前是用省略号“...”表示声明一个变长函数，调用这个函数的时候可以传递该类型任意数目的参数
+```go
+func sum(vals ...int) {
+    total := 0
+    for _, val := range vals {
+        total += val
+    }
+    return total
+}
+```
+在上面例子的函数体中，vals是一个int类型的slice。当实参已经是一个slice时，可以如下调用
+```go
+values := []int{1,2,3,4}
+fmt.Println(sum(values...))
+```
+需要注意变长函数与直接带有slice参数的函数是不同类型
+
+变长函数通常用于格式化字符串
+```go
+func errorf(linenum int, format string, args ...interface{}) {
+    fmt.Fprintf(os.Stderr, "Line %d", linenum)
+    fmt.Fprintf(os.Stderr, format, args...)
+    fmt.Fprintln(os.Stderr)
+}
+
+linenum, name := 12, "count"
+errorf(linenum, "undefined: %s", name) // "Line 12: undefined: count"
+```
+
+## 延迟函数
+在执行语句前加上defer，则实际的调用推迟到包含defer语句的函数结束后才执行。defer语句没有使用次数限制，执行的时候以调用defer语句顺序的倒序进行。
+
+defer语句经常使用于成对的操作，比如打开和关闭，连接和断开，加锁和解锁。
